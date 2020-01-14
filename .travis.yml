@@ -1,0 +1,31 @@
+dist: bionic
+addons:
+  snaps:
+    - name: google-cloud-sdk
+      confinement: classic
+    - name: fluxctl
+      confinement: classic
+    - name: kubectl
+      confinement: classic
+
+services:
+- docker
+
+env:
+  global:
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+
+before_install:
+  #- openssl aes-256-cbc -K $encrypted_ba096d08fccf_key -iv $encrypted_ba096d08fccf_iv -in client-secret.json.enc -out client-secret.json -d
+  - gcloud -q auth activate-service-account --key-file $TRAVIS_BUILD_DIR/client-secret.json
+  - gcloud -q config set project travis-ci-staging-services-1 
+  - gcloud -q config set compute/zone us-central1
+  - gcloud container clusters get-credentials travis-ci-services
+  - gcloud auth configure-docker
+
+install: true
+
+jobs:
+  include:
+    - stage: ":ship: it"
+      script: make docker-build

@@ -17,6 +17,10 @@ env:
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_47ca77b4c47a_key -iv $encrypted_47ca77b4c47a_iv -in client-secret.json.enc -out client-secret.json -d
+  - openssl aes-256-cbc -K $encrypted_47ca77b4c47a_key -iv $encrypted_47ca77b4c47a_iv -in key.enc -out /tmp/ssh_key -d
+  - eval "$(ssh-agent -s)"
+  - chmod 600 /tmp/ssh_key
+  - ssh-add /tmp/ssh_key
   - gcloud -q auth activate-service-account --key-file ${TRAVIS_BUILD_DIR}/client-secret.json
   - gcloud -q config set project travis-ci-${PROJECT}-services-1 
   - gcloud -q config set compute/zone us-central1

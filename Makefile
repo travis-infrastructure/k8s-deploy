@@ -1,25 +1,33 @@
 SHELL := bash
 
 VERSION_VALUE ?= $(shell git describe --always --dirty --tags 2>/dev/null)
-DOCKER_IMAGE_REPO ?= gcr.io/travis-ci-staging-services-1/test-google-sdk
+APP_NAME ?= $(shell gcut -d "/" -f 2 <<< "${K8S_APP_REPO}")
+DOCKER_IMAGE_REPO ?= gcr.io/travis-ci-$(PROJECT)-services-1/$(APP_NAME)
 FLUX_NAMESPACE ?= flux
-APP_NAMESPACE ?= gce-staging-services-1
-HELM_RELEASE ?= helmrelease/shield
-
-DOCKER ?= gcloud docker --
+HELM_RELEASE ?= helmrelease/$(APP_NAME)
+APP_SOURCE_DIR ?= $(TRAVIS_WORKDIR)/src
 FLUXCTL ?= fluxctl
+
+.PHONY: check-env
+check-env:
+ifndef K8S_APP_REPO
+	$(error K8S_APP_REPO is undefined)
+endif
+ifndef PROJECT
+	$(error PROJECT is undefined)
+endif
+
+.PHONY: checkout
+checkout:
+	$(TRAVIS_WORKDIR)/checkout.sh
 
 .PHONY: docker-build
 docker-build:
-	$(DOCKER) build . -t $(DOCKER_IMAGE_REPO):$(VERSION_VALUE)
-
-.PHONY: docker-push
-docker-push:
-	$(DOCKER) push $(DOCKER_IMAGE_REPO):$(VERSION_VALUE)
+	cd $(APP_SOURCE_DIR) && $(TRAVIS_WORKDIR)/docker-build.sh
 
 .PHONY: flux-release
 flux-release:
-	$(FLUXCTL) --k8s-fwd-ns=$(FLUX_NAMESPACE) release --workload $(APP_NAMESPACE):$(HELM_RELEASE) --update-image=$(DOCKER_IMAGE_REPO):$(VERSION_VALUE)
+	$(FLUXCTL) --k8s-fwd-ns=$(FLUX_NAMESPACE) release --workload gce-$(PROJECT)-services-1:$(HELM_RELEASE) --update-image=$(DOCKER_IMAGE_REPO):$(VERSION_VALUE)
 
 .PHONY: ship
-ship: docker-build docker-push flux-release
+ship: check-env checkout docker-build flux-release

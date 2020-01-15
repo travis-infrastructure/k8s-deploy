@@ -5,7 +5,7 @@ APP_NAME ?= $(shell gcut -d "/" -f 2 <<< "${K8S_APP_REPO}")
 DOCKER_IMAGE_REPO ?= gcr.io/travis-ci-$(PROJECT)-services-1/$(APP_NAME)
 FLUX_NAMESPACE ?= flux
 HELM_RELEASE ?= helmrelease/$(APP_NAME)
-APP_SOURCE_DIR ?= $(TRAVIS_WORKDIR)/src
+APP_SOURCE_DIR ?= ./src
 FLUXCTL ?= fluxctl
 
 .PHONY: check-env
@@ -19,11 +19,11 @@ endif
 
 .PHONY: checkout
 checkout:
-	$(TRAVIS_WORKDIR)/checkout.sh
+	./checkout.sh
 
 .PHONY: docker-build
 docker-build:
-	cd $(APP_SOURCE_DIR) && $(TRAVIS_WORKDIR)/docker-build.sh
+	cd $(APP_SOURCE_DIR) && ../docker-build.sh
 
 .PHONY: flux-release
 flux-release:

@@ -1,7 +1,7 @@
 SHELL := bash
 
 VERSION_VALUE ?= $(shell git describe --always --dirty --tags 2>/dev/null)
-APP_NAME ?= $(shell gcut -d "/" -f 2 <<< "${K8S_APP_REPO}")
+APP_NAME ?= $(shell cut -d "/" -f 2 <<< "${K8S_APP_REPO}")
 DOCKER_IMAGE_REPO ?= gcr.io/travis-ci-$(PROJECT)-services-1/$(APP_NAME)
 FLUX_NAMESPACE ?= flux
 HELM_RELEASE ?= helmrelease/$(APP_NAME)

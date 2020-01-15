@@ -17,7 +17,7 @@ env:
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_47ca77b4c47a_key -iv $encrypted_47ca77b4c47a_iv -in secrets.tar.enc -out secrets.tar -d
-  - mv key /tmp/ssh_key
+  - tar xvf secrets.tar && mv key /tmp/ssh_key
   - eval "$(ssh-agent -s)"
   - chmod 600 /tmp/ssh_key
   - ssh-add /tmp/ssh_key

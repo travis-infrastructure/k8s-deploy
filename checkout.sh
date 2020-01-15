@@ -10,9 +10,9 @@ if [[ -z $K8S_APP_REPO ]]; then
   exit 1
 fi
 
-git clone git@github.com:$K8S_APP_REPO $TRAVIS_WORKDIR/src
+git clone git@github.com:$K8S_APP_REPO $TRAVIS_BUILD_DIR/src
 
 if [[ $K8S_APP_REPO_COMMIT ]]; then
-  cd $TRAVIS_WORKDIR/src
+  cd $TRAVIS_BUILD_DIR/src
   git checkout $K8S_APP_REPO_COMMIT 
 fi

@@ -5,7 +5,7 @@
 # 
 
 APP_NAME=$(cut -d "/" -f 2 <<< $K8S_APP_REPO)
-COMMIT_SHA_SHORT=$(git describe --always --dirty --tags 2>/dev/null)
+COMMIT_SHA_SHORT=$(git describe --always --tags 2>/dev/null)
 DOCKER_IMAGE_PATH="gcr.io/travis-ci-${PROJECT}-services-1/${APP_NAME}"
 DOCKER_IMAGE_TAG=$(gcloud container images list-tags ${DOCKER_IMAGE_PATH} --filter="tags=${COMMIT_SHA_SHORT}" --format=json)
 

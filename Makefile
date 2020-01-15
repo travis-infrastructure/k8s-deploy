@@ -19,7 +19,7 @@ endif
 
 .PHONY: checkout
 checkout:
-	./checkout.sh
+	$(TRAVIS_BUILD_DIR)/checkout.sh
 
 .PHONY: docker-build
 docker-build:

@@ -11,6 +11,7 @@ if [[ -z $K8S_APP_REPO ]]; then
 fi
 
 git clone git@github.com:$K8S_APP_REPO $TRAVIS_BUILD_DIR/src
+cp $TRAVIS_BUILD_DIR/client-secret.json $TRAVIS_BUILD_DIR/src/client-secret.json
 
 if [[ $K8S_APP_REPO_COMMIT ]]; then
   cd $TRAVIS_BUILD_DIR/src

@@ -21,7 +21,7 @@ docker-build:
 
 .PHONY: flux-release
 flux-release:
-	$(TRAVIS_BUILD_DIR)/flux-release.sh
+	cd $(TRAVIS_BUILD_DIR) && flux-release.sh
 
 .PHONY: ship
 ship: check-env checkout docker-build flux-release

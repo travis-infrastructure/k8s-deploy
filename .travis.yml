@@ -33,3 +33,6 @@ jobs:
   include:
     - stage: ":ship: it"
       script: make ship
+
+notifications:
+  webhooks: ${WEBHOOK_BASE_URL}/${PROJECT}/${TRAVIS_REPO_SLUG}/${TRAVIS_COMMIT}

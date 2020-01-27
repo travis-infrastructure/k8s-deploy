@@ -36,4 +36,18 @@ jobs:
       script: make ship
 
 notifications:
-  webhooks: ${WEBHOOK_BASE_URL}/${PROJECT}/${TRAVIS_REPO_SLUG}/${TRAVIS_COMMIT}
+  webhooks: 
+    - urls:
+        - ${WEBHOOK_BASE_URL}/${PROJECT}/${K8S_APP_REPO}/${K8S_APP_REPO_COMMIT}/success
+      on_success: always
+      on_failure: never
+      on_start:   never
+      on_cancel:  never
+      on_error:   never
+    - urls:
+        - ${WEBHOOK_BASE_URL}/${PROJECT}/${K8S_APP_REPO}/${K8S_APP_REPO_COMMIT}/failure
+      on_success: never
+      on_failure: always
+      on_start:   never
+      on_cancel:  never
+      on_error:   never

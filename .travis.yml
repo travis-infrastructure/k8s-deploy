@@ -49,5 +49,5 @@ notifications:
       on_success: never
       on_failure: always
       on_start:   never
-      on_cancel:  never
-      on_error:   never
+      on_cancel:  always
+      on_error:   always

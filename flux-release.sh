@@ -11,3 +11,9 @@ docker pull $DOCKER_IMAGE_REPO:$VERSION_VALUE
 fluxctl --k8s-fwd-ns=$FLUX_NAMESPACE release \
           --workload gce-$PROJECT-services-1:$HELM_RELEASE \
           --update-image=$DOCKER_IMAGE_REPO:$VERSION_VALUE
+
+if [ "$?" -eq "0" ]; then
+  curl -X POST https://webhook.site/7117a92b-f063-448c-87d5-6c2b23c39a12/hubot/$PROJECT/$K8S_APP_REPO/$K8S_APP_REPO_COMMIT/success
+else
+  curl -X POST https://webhook.site/7117a92b-f063-448c-87d5-6c2b23c39a12/hubot/$PROJECT/$K8S_APP_REPO/$K8S_APP_REPO_COMMIT/failed
+fi

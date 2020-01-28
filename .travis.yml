@@ -37,10 +37,17 @@ jobs:
 
 notifications:
   webhooks: 
-    urls:
-      - https://webhook.site/7117a92b-f063-448c-87d5-6c2b23c39a12/aaa/bbb/ccc
-    on_success: always
-    on_failure: always
-    on_start:   never
-    on_cancel:  always
-    on_error:   always
+    - urls:
+        - https://webhook.site/7117a92b-f063-448c-87d5-6c2b23c39a12/aaa/bbb/s
+      on_success: always
+      on_failure: never
+      on_start:   never
+      on_cancel:  never
+      on_error:   never
+    - urls:
+        - https://webhook.site/7117a92b-f063-448c-87d5-6c2b23c39a12/aaa/bbb/f
+      on_success: never
+      on_failure: always
+      on_start:   never
+      on_cancel:  always
+      on_error:   always

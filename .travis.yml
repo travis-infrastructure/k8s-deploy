@@ -38,14 +38,14 @@ jobs:
 notifications:
   webhooks: 
     - urls:
-        - https://webhook.site/7117a92b-f063-448c-87d5-6c2b23c39a12/aaa/bbb/s
+        - https://fluxbot-staging.travis-ci.org/hubot/$PROJECT/$K8S_APP_REPO/$K8S_APP_REPO_COMMIT/success
       on_success: always
       on_failure: never
       on_start:   never
       on_cancel:  never
       on_error:   never
     - urls:
-        - https://webhook.site/7117a92b-f063-448c-87d5-6c2b23c39a12/aaa/bbb/f
+        - https://fluxbot-staging.travis-ci.org/hubot/$PROJECT/$K8S_APP_REPO/$K8S_APP_REPO_COMMIT/failed
       on_success: never
       on_failure: always
       on_start:   never

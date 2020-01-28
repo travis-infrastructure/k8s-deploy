@@ -37,17 +37,10 @@ jobs:
 
 notifications:
   webhooks: 
-    - urls:
-        - ${WEBHOOK_BASE_URL}/${PROJECT}/${K8S_APP_REPO}/${K8S_APP_REPO_COMMIT}/success
-      on_success: always
-      on_failure: never
-      on_start:   never
-      on_cancel:  never
-      on_error:   never
-    - urls:
-        - ${WEBHOOK_BASE_URL}/${PROJECT}/${K8S_APP_REPO}/${K8S_APP_REPO_COMMIT}/failure
-      on_success: never
-      on_failure: always
-      on_start:   never
-      on_cancel:  always
-      on_error:   always
+    urls:
+      - ${WEBHOOK_BASE_URL}/${PROJECT}/${K8S_APP_REPO}/${K8S_APP_REPO_COMMIT}/success
+    on_success: always
+    on_failure: always
+    on_start:   never
+    on_cancel:  always
+    on_error:   always

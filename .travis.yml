@@ -45,7 +45,7 @@ notifications:
       on_cancel:  never
       on_error:   never
     - urls:
-        - https://webhook.site/7117a92b-f063-448c-87d5-6c2b23c39a12/hubot/$PROJECT/$K8S_APP_REPO/$K8S_APP_REPO_COMMIT/failed
+        - https://webhook.site/7117a92b-f063-448c-87d5-6c2b23c39a12/hubot/${PROJECT}/${K8S_APP_REPO}/${K8S_APP_REPO_COMMIT}/failed
       on_success: never
       on_failure: always
       on_start:   never

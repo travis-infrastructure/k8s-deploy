@@ -13,7 +13,7 @@ sleep 60
 
 fluxctl --k8s-fwd-ns=$FLUX_NAMESPACE release \
           --workload gce-$PROJECT-services-1:$HELM_RELEASE \
-          --update-image=$DOCKER_IMAGE_REPO:$VERSION_VALUE
+          --refresh --update-image=$DOCKER_IMAGE_REPO:$VERSION_VALUE
 
 if [ "$?" -eq "0" ]; then
   curl -k -H "Content-Type: application/json" -X POST -d $NOTIFICATION_DATA https://fluxbot-staging.travis-ci.org/hubot/$PROJECT/$K8S_APP_REPO/$K8S_APP_REPO_COMMIT/success

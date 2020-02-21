@@ -9,7 +9,7 @@ NOTIFICATION_DATA='{"build_url":"'${TRAVIS_BUILD_WEB_URL}'"}'
 
 docker pull $DOCKER_IMAGE_REPO:$VERSION_VALUE
 
-sleep 30
+sleep 60
 
 fluxctl --k8s-fwd-ns=$FLUX_NAMESPACE release \
           --workload gce-$PROJECT-services-1:$HELM_RELEASE \

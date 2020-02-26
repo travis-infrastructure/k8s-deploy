@@ -24,8 +24,10 @@ before_install:
   - ssh-add /tmp/ssh_key
   - gcloud -q auth activate-service-account --key-file ${TRAVIS_BUILD_DIR}/client-secret.json
   - gcloud -q config set project travis-ci-${PROJECT}-services-1 
-  - gcloud -q config set compute/zone us-central1
-  - gcloud container clusters get-credentials travis-ci-services
+  - export GCP_ZONE="${GCP_ZONE:-us-central1}"
+  - gcloud -q config set compute/zone ${GCP_ZONE}
+  - export GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services}"
+  - gcloud container clusters get-credentials ${GKE_CLUSTER}
   - gcloud auth configure-docker
 
 install: true

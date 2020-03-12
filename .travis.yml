@@ -24,7 +24,7 @@ before_install:
   - ssh-add /tmp/ssh_key
   - gcloud -q auth activate-service-account --key-file ${TRAVIS_BUILD_DIR}/client-secret.json
   - gcloud -q config set project travis-ci-${PROJECT}-services-1 
-  - export GCP_ZONE="${GCP_ZONE:-us-east4}"
+  - if [[ "${PROJECT}" == "production" ]]; then export GCP_ZONE="${GCP_ZONE:-us-east1}"; else export GCP_ZONE="${GCP_ZONE:-us-east4}" fi
   - gcloud -q config set compute/zone ${GCP_ZONE}
   - export GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services-1}"
   - gcloud container clusters get-credentials ${GKE_CLUSTER}

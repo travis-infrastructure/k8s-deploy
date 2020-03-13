@@ -20,13 +20,17 @@ before_install:
 - vault login "${VAULT_TOKEN}"
 - vault kv get -field=secret "gcp/gcp-k8s-sa-${PROJECT}" > client-secret.json;
 - vault kv get -field=secret "gcp/k8s-deploy-ssh-key" > /tmp/ssh_key
-- if [[ "${PROJECT}" == "production" ]]; then export GCP_ZONE="${GCP_ZONE:-us-east1}" && GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services}";
-  else export GCP_ZONE="${GCP_ZONE:-us-east4}" && GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services-1}"; fi
+- if [[ "${PROJECT}" == "production" ]]; then export GCP_ZONE="${GCP_ZONE:-us-east1}"
+  export GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services}";
+  export GCE_PROJECT="travis-ci-prod-services-1";
+  else export GCP_ZONE="${GCP_ZONE:-us-east4}";
+  export GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services-1}"; 
+  export GCE_PROJECT="travis-ci-staging-services-1"; fi
 - gcloud -q auth activate-service-account --key-file "${TRAVIS_BUILD_DIR}/client-secret.json";
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/ssh_key
 - ssh-add /tmp/ssh_key
-- gcloud -q config set project travis-ci-${PROJECT}-services-1
+- gcloud -q config set project ${GCE_PROJECT}
 - gcloud -q config set compute/zone ${GCP_ZONE}
 - gcloud container clusters get-credentials ${GKE_CLUSTER}
 - gcloud auth configure-docker

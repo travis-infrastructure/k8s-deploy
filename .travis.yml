@@ -19,7 +19,7 @@ before_install:
 - export PATH=$PATH:/snap/google-cloud-sdk/current/bin
 - vault login "${VAULT_TOKEN}"
 - vault kv get -field=secret "gcp/gcp-k8s-sa-${PROJECT}" > client-secret.json;
-- vault kv get -field=secret "gcp/k8s-deploy-ssh-key > /tmp/ssh_key
+- vault kv get -field=secret "gcp/k8s-deploy-ssh-key" > /tmp/ssh_key
 - if [[ "${PROJECT}" == "production" ]]; then export GCP_ZONE="${GCP_ZONE:-us-east1};
   else export GCP_ZONE="${GCP_ZONE:-us-east4}"; 
 - gcloud -q auth activate-service-account --key-file ${TRAVIS_BUILD_DIR}/client-secret.json";

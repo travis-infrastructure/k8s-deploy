@@ -7,7 +7,9 @@ DOCKER_IMAGE_REPO="gcr.io/${GCE_PROJECT}/${APP_NAME}"
 VERSION_VALUE=$(git --git-dir=/${TRAVIS_BUILD_DIR}/src/.git describe --always --tags 2>/dev/null)
 NOTIFICATION_DATA='{"build_url":"'${TRAVIS_BUILD_WEB_URL}'"}'
 
-sleep 90
+docker pull $DOCKER_IMAGE_REPO:$VERSION_VALUE
+
+sleep 60
 
 fluxctl --k8s-fwd-ns=$FLUX_NAMESPACE release \
           --workload gce-$PROJECT-services-1:$HELM_RELEASE \

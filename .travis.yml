@@ -17,7 +17,7 @@ env:
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
 - export PATH=$PATH:/snap/google-cloud-sdk/current/bin
-- vault login "${VAULT_TOKEN}"
+- vault login "${VAULT_TOKEN}" && vault token renew "${VAULT_TOKEN}"
 - vault kv get -field=secret "gcp/gcp-k8s-sa-${PROJECT}" > client-secret.json;
 - vault kv get -field=secret "gcp/k8s-deploy-ssh-key" > /tmp/ssh_key
 - if [[ "${PROJECT}" == "production" ]]; then export GCP_ZONE="${GCP_ZONE:-us-east1}"

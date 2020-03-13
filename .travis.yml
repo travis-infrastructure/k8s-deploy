@@ -20,9 +20,9 @@ before_install:
 - vault login "${VAULT_TOKEN}"
 - vault kv get -field=secret "gcp/gcp-k8s-sa-${PROJECT}" > client-secret.json;
 - vault kv get -field=secret "gcp/k8s-deploy-ssh-key" > /tmp/ssh_key
-- if [[ "${PROJECT}" == "production" ]]; then export GCP_ZONE="${GCP_ZONE:-us-east1};
+- if [[ "${PROJECT}" == "production" ]]; then export GCP_ZONE="${GCP_ZONE:-us-east1}";
   else export GCP_ZONE="${GCP_ZONE:-us-east4}"; 
-- gcloud -q auth activate-service-account --key-file ${TRAVIS_BUILD_DIR}/client-secret.json";
+- gcloud -q auth activate-service-account --key-file "${TRAVIS_BUILD_DIR}/client-secret.json";
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/ssh_key
 - ssh-add /tmp/ssh_key

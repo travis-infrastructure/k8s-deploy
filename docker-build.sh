@@ -12,7 +12,7 @@ DOCKER_IMAGE_TAG=$(gcloud container images list-tags ${DOCKER_IMAGE_PATH} --filt
 if [[ "${DOCKER_IMAGE_TAG}" == "[]" ]]; then
   echo "Tag doesn't exist in gcr.io. Building image..."
   gcloud docker -- pull $DOCKER_IMAGE_PATH:latest || true
-  docker build . --build-arg bundle_gems__contribsys__com -t $DOCKER_IMAGE_PATH:$COMMIT_SHA_SHORT
+  docker build . --build-arg bundle_gems__contribsys__com --cache-from $DOCKER_IMAGE_PATH:latest -t $DOCKER_IMAGE_PATH:$COMMIT_SHA_SHORT
   docker tag $DOCKER_IMAGE_PATH:$COMMIT_SHA_SHORT $DOCKER_IMAGE_PATH:latest
   gcloud docker -- push $DOCKER_IMAGE_PATH:$COMMIT_SHA_SHORT
   gcloud docker -- push $DOCKER_IMAGE_PATH:latest

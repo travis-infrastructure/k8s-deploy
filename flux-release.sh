@@ -19,6 +19,11 @@ else
   WORKLOAD=gce-$PROJECT-services-1
 fi
 
+echo fluxctl --k8s-fwd-ns=$FLUX_NAMESPACE release \
+          --workload $WORKLOAD:$HELM_RELEASE \
+          --namespace $NS \
+          --update-image=$DOCKER_IMAGE_REPO:$VERSION_VALUE
+          
 fluxctl --k8s-fwd-ns=$FLUX_NAMESPACE release \
           --workload $WORKLOAD:$HELM_RELEASE \
           --namespace $NS \

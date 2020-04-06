@@ -11,7 +11,7 @@ docker pull $DOCKER_IMAGE_REPO:$VERSION_VALUE
 
 sleep 120
 
-if [[ $DEPLOYMENT_NAME =~ "^travis-pro" ]]; then
+if [[ $DEPLOYMENT_NAME =~ ^travis-pro ]]; then
   NS=gce-$PROJECT-pro-services-1
   WORKLOAD=gce-$PROJECT-pro-services-1
 else
@@ -19,8 +19,6 @@ else
   WORKLOAD=gce-$PROJECT-services-1
 fi
 
-echo $DEPLOYMENT_NAME
-echo $SHELL
 echo fluxctl --k8s-fwd-ns=$FLUX_NAMESPACE release \
           --workload $WORKLOAD:$HELM_RELEASE \
           --namespace $NS \

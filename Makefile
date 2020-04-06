@@ -1,4 +1,4 @@
-SHELL := bash
+SHELL := /bin/bash
 
 APP_SOURCE_DIR ?= $(TRAVIS_BUILD_DIR)/src
 

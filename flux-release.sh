@@ -19,6 +19,8 @@ else
   WORKLOAD=gce-$PROJECT-services-1
 fi
 
+echo $DEPLOYMENT_NAME
+echo $SHELL
 echo fluxctl --k8s-fwd-ns=$FLUX_NAMESPACE release \
           --workload $WORKLOAD:$HELM_RELEASE \
           --namespace $NS \

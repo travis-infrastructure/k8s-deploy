@@ -20,7 +20,7 @@ before_install:
 - vault login "${VAULT_TOKEN}"
 - vault kv get -field=secret "gcp/gcp-k8s-sa-${PROJECT}" > client-secret.json;
 - vault kv get -field=secret "gcp/k8s-deploy-ssh-key" > /tmp/ssh_key
-- curl -sLO http://ppa.launchpad.net/rmescandon/yq/ubuntu/pool/main/y/yq/yq_3.1-2_amd64.deb && dpkg -i yq_3.1-2_amd64.deb && rm -f yq_3.1-2_amd64.deb;
+- curl -sLO http://ppa.launchpad.net/rmescandon/yq/ubuntu/pool/main/y/yq/yq_3.1-2_amd64.deb && sudo dpkg -i yq_3.1-2_amd64.deb && rm -f yq_3.1-2_amd64.deb;
 - if [[ "${PROJECT}" == "production" ]]; then
     export GCP_ZONE="${GCP_ZONE:-us-east1}"
     export GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services}";

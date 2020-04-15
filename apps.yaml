@@ -3,7 +3,11 @@ travis-github-sync-production:
   cluster: travis-ci-services-1
 travis-gatekeeper-production:
   cluster: travis-ci-services-1
+travis-tasks-production:
+  cluster: travis-ci-services-1
 travis-pro-github-sync-production:
   cluster: travis-ci-services-1
 travis-pro-gatekeeper-production:
+  cluster: travis-ci-services-1
+travis-pro-tasks-production:
   cluster: travis-ci-services-1

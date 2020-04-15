@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o errexit
+
 #
 # This script checks if image already exist in registry, if not it will build and tag image
 # 

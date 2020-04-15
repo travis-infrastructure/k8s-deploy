@@ -29,7 +29,8 @@ before_install:
       GKE_CLUSTER=${APPS_CLUSTER}
     fi
     export GCE_PROJECT="travis-ci-prod-services-1";
-  else export GCP_ZONE="${GCP_ZONE:-us-east4}";
+  else
+    export GCP_ZONE="${GCP_ZONE:-us-east4}";
     export GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services-1}";
     export GCE_PROJECT="travis-ci-staging-services-1";
   fi

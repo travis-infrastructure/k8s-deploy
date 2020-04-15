@@ -21,16 +21,18 @@ before_install:
 - vault kv get -field=secret "gcp/gcp-k8s-sa-${PROJECT}" > client-secret.json;
 - vault kv get -field=secret "gcp/k8s-deploy-ssh-key" > /tmp/ssh_key
 - curl -sLO http://ppa.launchpad.net/rmescandon/yq/ubuntu/pool/main/y/yq/yq_3.1-2_amd64.deb && dpkg -i yq_3.1-2_amd64.deb && rm -f yq_3.1-2_amd64.deb;
-- if [[ "${PROJECT}" == "production" ]]; then export GCP_ZONE="${GCP_ZONE:-us-east1}"
-  export GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services}";
-  APPS_CLUSTER=$(yq r ./apps.yaml ${DEPLOYMENT_NAME}.cluster)
-  if [[ "xx${APPS_CLUSTER}" != "xx" ]]; then
-    GKE_CLUSTER=${APPS_CLUSTER}
-  fi
-  export GCE_PROJECT="travis-ci-prod-services-1";
+- if [[ "${PROJECT}" == "production" ]]; then
+    export GCP_ZONE="${GCP_ZONE:-us-east1}"
+    export GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services}";
+    APPS_CLUSTER=$(yq r ./apps.yaml ${DEPLOYMENT_NAME}.cluster)
+    if [[ "xx${APPS_CLUSTER}" != "xx" ]]; then
+      GKE_CLUSTER=${APPS_CLUSTER}
+    fi
+    export GCE_PROJECT="travis-ci-prod-services-1";
   else export GCP_ZONE="${GCP_ZONE:-us-east4}";
-  export GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services-1}";
-  export GCE_PROJECT="travis-ci-staging-services-1"; fi
+    export GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services-1}";
+    export GCE_PROJECT="travis-ci-staging-services-1";
+  fi
 - gcloud -q auth activate-service-account --key-file "${TRAVIS_BUILD_DIR}/client-secret.json";
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/ssh_key

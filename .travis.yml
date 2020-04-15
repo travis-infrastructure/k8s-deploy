@@ -36,7 +36,7 @@ before_install:
 - ssh-add /tmp/ssh_key
 - gcloud -q config set project ${GCE_PROJECT}
 - gcloud -q config set compute/zone ${GCP_ZONE}
-- echo "Using cluster: ${GKE_CLUSTER}"
+- echo Using cluster: ${GKE_CLUSTER}
 - gcloud container clusters get-credentials ${GKE_CLUSTER}
 - gcloud auth configure-docker
 install: true

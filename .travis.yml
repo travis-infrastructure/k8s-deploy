@@ -24,7 +24,7 @@ before_install:
 - if [[ "${PROJECT}" == "production" ]]; then export GCP_ZONE="${GCP_ZONE:-us-east1}";
   export GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services}";
   APPS_CLUSTER=$(yq r ./apps.yaml ${DEPLOYMENT_NAME}.cluster);
-  if [[ "xx${APPS_CLUSTER}" != "xx" ]]; then GKE_CLUSTER=${APPS_CLUSTER}; fi
+  if [[ "xx${APPS_CLUSTER}" != "xx" ]]; then GKE_CLUSTER=${APPS_CLUSTER}; fi;
   export GCE_PROJECT="travis-ci-prod-services-1";
   else
   export GCP_ZONE="${GCP_ZONE:-us-east4}";

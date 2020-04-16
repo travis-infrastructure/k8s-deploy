@@ -9,7 +9,7 @@ NOTIFICATION_DATA='{"build_url":"'${TRAVIS_BUILD_WEB_URL}'"}'
 
 docker pull $DOCKER_IMAGE_REPO:$VERSION_VALUE
 
-sleep 120
+sleep 120 # flux operator caches registry every minute
 
 if [[ $DEPLOYMENT_NAME =~ ^travis-pro ]]; then
   NS=gce-$PROJECT-pro-services-1

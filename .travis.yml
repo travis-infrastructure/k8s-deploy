@@ -43,7 +43,6 @@ jobs:
   include:
   - stage: ":ship: it"
     script: 
-    - export NOTIFICATION_DATA='{"build_url":"'${TRAVIS_BUILD_WEB_URL}'"}'
     - make ship
     - if [ "$?" == 0 ]; then ${TRAVIS_BUILD_DIR}/notify.sh 0
       else ${TRAVIS_BUILD_DIR}/notify.sh 1; fi

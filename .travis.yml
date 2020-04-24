@@ -1,21 +1,16 @@
 dist: bionic
-addons:
-  snaps:
-  - name: google-cloud-sdk
-    confinement: classic
-  - name: fluxctl
-    confinement: classic
-  - name: kubectl
-    confinement: classic
-  - name: vault
-    confinement: classic 
-     
+
+cache:	
+  directories:	
+    - /home/travis/.snaps
+    
 services:
 - docker
 env:
   global:
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
+- mkdir -p ~/.snaps ; pushd .snaps ; for snap in core google-cloud-sdk fluxctl kubectl vault ; do ls $snap*.snap > /dev/null 2>&1 || snap download $snap ; sudo snap install --dangerous $snap*.snap --classic ; done ; popd
 - export PATH=$PATH:/snap/google-cloud-sdk/current/bin
 - vault login "${VAULT_TOKEN}"
 - vault kv get -field=secret "gcp/gcp-k8s-sa-${PROJECT}" > client-secret.json;

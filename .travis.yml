@@ -1,8 +1,4 @@
 dist: bionic
-
-cache:
-  directories:
-    - /home/travis/.snaps
      
 services:
 - docker

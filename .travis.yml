@@ -10,8 +10,8 @@ before_install:
 - sudo snap set system refresh.hold="$(date --date=tomorrow +%Y-%m-%dT%H:%M:%S%:z)"
 - sudo snap get system refresh.hold
 - wget -q -i ${TRAVIS_BUILD_DIR}/snap.list -P /home/travis/.snaps
-- cd /home/travis/.snaps && sudo snap ack core_8935.assert && sudo snap ack fluxctl_70.assert && sudo snap ack google-cloud-sdk_128.assert && sudo snap ack kubectl_1506.assert && sudo snap ack vault_1822.assert
-- cd /home/travis/.snaps ; for snap in core ; do ls $snap*.snap > /dev/null 2>&1 || snap download $snap ; sudo snap install --dangerous $snap*.snap ; done ; cd ${TRAVIS_BUILD_DIR}
+- cd /home/travis/.snaps && sudo snap ack core_8935.assert && sudo snap ack core18_1705.assert && sudo snap ack fluxctl_70.assert && sudo snap ack google-cloud-sdk_128.assert && sudo snap ack kubectl_1506.assert && sudo snap ack vault_1822.assert
+- cd /home/travis/.snaps ; for snap in core core18 ; do ls $snap*.snap > /dev/null 2>&1 || snap download $snap ; sudo snap install --dangerous $snap*.snap ; done ; cd ${TRAVIS_BUILD_DIR}
 - cd /home/travis/.snaps ; for snap in google-cloud-sdk fluxctl kubectl vault ; do ls $snap*.snap > /dev/null 2>&1 || snap download $snap ; sudo snap install --dangerous $snap*.snap --classic ; done ; cd ${TRAVIS_BUILD_DIR}
 - export PATH=$PATH:/snap/google-cloud-sdk/current/bin
 - vault login "${VAULT_TOKEN}"

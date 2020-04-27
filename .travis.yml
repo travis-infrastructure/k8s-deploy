@@ -1,16 +1,14 @@
 dist: bionic
 
-cache:
-  directories:
-    - /home/travis/.snaps
-
 services:
 - docker
 env:
   global:
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
-- mkdir -p /home/travis/.snaps ; cd /home/travis/.snaps ; for snap in core google-cloud-sdk fluxctl kubectl vault ; do ls $snap*.snap > /dev/null 2>&1 || snap download $snap ; sudo snap install --dangerous $snap*.snap --classic ; done ; cd ${TRAVIS_BUILD_DIR}
+- mkdir -p /home/travis/.snaps
+- wget -i ${TRAVIS_BUILD_DIR}/snap.list -P /home/travis/.snaps
+- cd /home/travis/.snaps ; for snap in core google-cloud-sdk fluxctl kubectl vault ; do ls $snap*.snap > /dev/null 2>&1 || snap download $snap ; sudo snap install --dangerous $snap*.snap --classic ; done ; cd ${TRAVIS_BUILD_DIR}
 - export PATH=$PATH:/snap/google-cloud-sdk/current/bin
 - vault login "${VAULT_TOKEN}"
 - vault kv get -field=secret "gcp/gcp-k8s-sa-${PROJECT}" > client-secret.json;

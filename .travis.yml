@@ -40,6 +40,5 @@ jobs:
   - stage: ":ship: it"
     script: 
     - make ship
-    - if [ "$?" -eq "0" ]; then ${TRAVIS_BUILD_DIR}/notify.sh success; else ${TRAVIS_BUILD_DIR}/notify.sh failure; fi
 
 

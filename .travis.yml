@@ -10,8 +10,8 @@ before_install:
 - sudo snap set system refresh.hold="$(date --date=tomorrow +%Y-%m-%dT%H:%M:%S%:z)"
 - sudo snap get system refresh.hold
 - wget -i ${TRAVIS_BUILD_DIR}/snap.list -P /home/travis/.snaps
-- cd /home/travis/.snaps && snap ack core_8935.assert && snap ack fluxctl_70.assert && snap ack google-cloud-sdk_128.assert && snap ack kubectl_1506.assert && snap ack vault_1822.assert
-- cd /home/travis/.snaps && snap install core_8935.snap && snap install fluxctl_70.snap && snap install google-cloud-sdk_128.snap && snap install kubectl_1506.snap && snap install vault_1822.snap
+- cd /home/travis/.snaps && sudo snap ack core_8935.assert && sudo snap ack fluxctl_70.assert && sudo snap ack google-cloud-sdk_128.assert && sudo snap ack kubectl_1506.assert && sudo snap ack vault_1822.assert
+- cd /home/travis/.snaps && sudo snap install core_8935.snap && sudo snap install fluxctl_70.snap && sudo snap install google-cloud-sdk_128.snap && sudo snap install kubectl_1506.snap && sudo snap install vault_1822.snap
 - export PATH=$PATH:/snap/google-cloud-sdk/current/bin
 - vault login "${VAULT_TOKEN}"
 - vault kv get -field=secret "gcp/gcp-k8s-sa-${PROJECT}" > client-secret.json;

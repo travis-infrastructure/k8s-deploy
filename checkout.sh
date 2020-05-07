@@ -17,3 +17,5 @@ if [[ $K8S_APP_REPO_COMMIT ]]; then
   cd $TRAVIS_BUILD_DIR/src
   git checkout $K8S_APP_REPO_COMMIT 
 fi
+
+git show -s

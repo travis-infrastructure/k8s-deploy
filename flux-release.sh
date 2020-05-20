@@ -21,7 +21,7 @@ fi
 
 APPS_NS=$(yq r ./apps.yaml ${DEPLOYMENT_NAME}-${PROJECT}.namespaces);
 if [[ "xx${APPS_NS}" != "xx" ]]; then
-  NS=${APPS_NS
+  NS=${APPS_NS}
 fi
 
 echo fluxctl --k8s-fwd-ns=$FLUX_NAMESPACE release \

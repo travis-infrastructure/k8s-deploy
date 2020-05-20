@@ -19,7 +19,7 @@ else
   WORKLOAD=gce-$PROJECT-services-1
 fi
 
-APPS_NS=$(yq r ./apps.yaml ${DEPLOYMENT_NAME}-${PROJECT}.namespaces);
+APPS_NS=$(yq r ./apps.yaml ${DEPLOYMENT_NAME}-${PROJECT}.namespace);
 if [[ "xx${APPS_NS}" != "xx" ]]; then
   NS=${APPS_NS}
 fi

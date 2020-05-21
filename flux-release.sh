@@ -24,12 +24,12 @@ if [[ "xx${APPS_NS}" != "xx" ]]; then
   NS=${APPS_NS}
 fi
 
-echo fluxctl --k8s-fwd-ns=$FLUX_NAMESPACE release \
+echo fluxctl --force --k8s-fwd-ns=$FLUX_NAMESPACE release \
           --workload $WORKLOAD:$HELM_RELEASE \
           --namespace $NS \
           --update-image=$DOCKER_IMAGE_REPO:$VERSION_VALUE
 
-fluxctl --k8s-fwd-ns=$FLUX_NAMESPACE release \
+fluxctl --force --k8s-fwd-ns=$FLUX_NAMESPACE release \
           --workload $WORKLOAD:$HELM_RELEASE \
           --namespace $NS \
           --update-image=$DOCKER_IMAGE_REPO:$VERSION_VALUE

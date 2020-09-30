@@ -24,9 +24,13 @@ if [[ $PROJECT = staging ]]; then
   APP=${APP_NAME/travis-/}
   IS_STAGE=${STAGE/-$APP/}
   if [[ ! -z "$IS_STAGE" ]]; then
-    NS=gce-$PROJECT-pro-$IS_STAGE-services-1
-    WORKLOAD=gce-$PROJECT-pro-$IS_STAGE-services-1
+    #NS=gce-$PROJECT-pro-$IS_STAGE-services-1
+    #WORKLOAD=gce-$PROJECT-pro-$IS_STAGE-services-1
+    echo $STAGE
+    echo $APP
+
   fi
+  echo $IS_STAGE
 fi
 
 APPS_NS=$(yq r ./apps.yaml ${DEPLOYMENT_NAME}-${PROJECT}.namespace);

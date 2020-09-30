@@ -19,6 +19,15 @@ else
   WORKLOAD=gce-$PROJECT-services-1
 fi
 
+if [[ $PROJECT = staging ]]; then
+  STAGE=${DEPLOYMENT_NAME/pro-/}
+  APP=${APP_NAME/travis-/}
+  IS_STAGE=${STAGE/-$APP/}
+  if [[ ! -z "$IS_STAGE" ]]; then
+    NS=gce-$PROJECT-pro-$IS_STAGE-services-1
+  fi
+fi
+
 APPS_NS=$(yq r ./apps.yaml ${DEPLOYMENT_NAME}-${PROJECT}.namespace);
 if [[ "xx${APPS_NS}" != "xx" ]]; then
   NS=${APPS_NS}

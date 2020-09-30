@@ -25,6 +25,7 @@ if [[ $PROJECT = staging ]]; then
   IS_STAGE=${STAGE/-$APP/}
   if [[ ! -z "$IS_STAGE" ]]; then
     NS=gce-$PROJECT-pro-$IS_STAGE-services-1
+    WORKLOAD=gce-$PROJECT-pro-$IS_STAGE-services-1
   fi
 fi
 

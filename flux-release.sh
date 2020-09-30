@@ -20,7 +20,7 @@ else
 fi
 
 if [[ $PROJECT = staging ]]; then
-  STAGE=${DEPLOYMENT_NAME/pro-/}
+  STAGE=${DEPLOYMENT_NAME/travis-pro-/}
   APP=${APP_NAME/travis-/}
   IS_STAGE=${STAGE/-$APP/}
   if [[ ! -z "$IS_STAGE" ]]; then

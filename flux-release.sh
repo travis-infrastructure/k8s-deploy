@@ -19,18 +19,15 @@ else
   WORKLOAD=gce-$PROJECT-services-1
 fi
 
-if [[ $PROJECT = staging ]]; then
+if [[ $PROJECT = staging && $DEPLOYMENT_NAME =~ ^travis-pro ]]; then
   STAGE=${DEPLOYMENT_NAME/travis-pro-/}
   APP=${APP_NAME/travis-/}
-  IS_STAGE=${STAGE/-$APP/}
+  IS_STAGE=${STAGE/$APP/}
   if [[ ! -z "$IS_STAGE" ]]; then
-    #NS=gce-$PROJECT-pro-$IS_STAGE-services-1
-    #WORKLOAD=gce-$PROJECT-pro-$IS_STAGE-services-1
-    echo $STAGE
-    echo $APP
-
+    IS_STAGE=$(echo $IS_STAGE | sed 's/.$//')
+    NS=gce-$PROJECT-pro-$IS_STAGE-services-1
+    WORKLOAD=gce-$PROJECT-pro-$IS_STAGE-services-1
   fi
-  echo $IS_STAGE
 fi
 
 APPS_NS=$(yq r ./apps.yaml ${DEPLOYMENT_NAME}-${PROJECT}.namespace);

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o errexit
+
 # 
 # K8S_APP_REPO - github repository path, example: travis-ci/app-name
 # K8S_APP_REPO_COMMIT (optional) - commit SHA or branch name, if empty it defaults to HEAD of master branch

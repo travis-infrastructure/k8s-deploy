@@ -15,6 +15,7 @@ before_install:
 - cd /home/travis/.snaps ; for snap in google-cloud-sdk fluxctl kubectl vault ; do ls $snap*.snap > /dev/null 2>&1 || snap download $snap ; sudo snap install --dangerous $snap*.snap --classic ; done ; cd ${TRAVIS_BUILD_DIR}
 - export PATH=$PATH:/snap/google-cloud-sdk/current/bin
 - vault login "${VAULT_TOKEN}"
+- docker login --username rarek --password ${DOCKER_HUB_TOKEN}
 - vault kv get -field=secret "gcp/gcp-k8s-sa-${PROJECT}" > client-secret.json;
 - vault kv get -field=secret "gcp/k8s-deploy-ssh-key" > /tmp/ssh_key
 - curl -sLO http://ppa.launchpad.net/rmescandon/yq/ubuntu/pool/main/y/yq/yq_3.1-2_amd64.deb && sudo dpkg -i yq_3.1-2_amd64.deb && rm -f yq_3.1-2_amd64.deb;

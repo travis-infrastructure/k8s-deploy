@@ -1,10 +1,11 @@
 #!/bin/bash
 
 set -o errexit
+set -xv
 
 #
 # This script checks if image already exist in registry, if not it will build and tag image
-# 
+#
 
 APP_NAME=$(cut -d "/" -f 2 <<< $K8S_APP_REPO)
 COMMIT_SHA_SHORT=$(git describe --always --tags 2>/dev/null)

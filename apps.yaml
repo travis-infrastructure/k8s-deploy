@@ -15,3 +15,5 @@ blog-travis-ci-com-production:
   namespace: gce-production-pro-services-1
 blog-travis-ci-com-staging:
   namespace: gce-staging-pro-services-1
+travis-pro-vcs-production:
+  cluster: travis-ci-services-1

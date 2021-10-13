@@ -1,5 +1,4 @@
 dist: bionic
-group: edge
 
 services:
 - docker

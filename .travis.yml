@@ -9,7 +9,7 @@ before_install:
 - mkdir -p /home/travis/.snaps
 - echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 - curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-- sudo apt-get update && sudo apt-get install -y google-cloud-sdk
+- sudo apt-get update && sudo apt-get install -y google-cloud-sdk google-cloud-sdk-gke-gcloud-auth-plugin
 - sudo snap set system refresh.hold="$(date --date=tomorrow +%Y-%m-%dT%H:%M:%S%:z)"
 - sudo snap get system refresh.hold
 - wget -q -i ${TRAVIS_BUILD_DIR}/snap.list -P /home/travis/.snaps
@@ -32,7 +32,6 @@ before_install:
   export GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services-1}";
   export GCE_PROJECT="travis-ci-staging-services-1"; fi
 - gcloud -q auth activate-service-account --key-file "${TRAVIS_BUILD_DIR}/client-secret.json";
-- gcloud components install gke-gcloud-auth-plugin
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/ssh_key
 - ssh-add /tmp/ssh_key

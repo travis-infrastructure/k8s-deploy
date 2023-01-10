@@ -32,6 +32,7 @@ before_install:
   export GKE_CLUSTER="${GKE_CLUSTER:-travis-ci-services-1}";
   export GCE_PROJECT="travis-ci-staging-services-1"; fi
 - gcloud -q auth activate-service-account --key-file "${TRAVIS_BUILD_DIR}/client-secret.json";
+- gcloud components install gke-gcloud-auth-plugin
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/ssh_key
 - ssh-add /tmp/ssh_key

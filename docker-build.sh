@@ -19,7 +19,8 @@ if [[ "${DOCKER_IMAGE_TAG}" == "[]" ]]; then
   docker tag $DOCKER_IMAGE_PATH:$COMMIT_SHA_SHORT $DOCKER_IMAGE_PATH:latest
   gcloud docker -- push $DOCKER_IMAGE_PATH:$COMMIT_SHA_SHORT
   gcloud docker -- push $DOCKER_IMAGE_PATH:latest
-
+  echo "Wait a little bit for the indexing"
+  sleep 60
 else
   echo "Image already exist in gcr.io"
   exit 0

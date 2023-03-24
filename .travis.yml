@@ -6,8 +6,6 @@ env:
   global:
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
-- ssh-keygen -R github.com
-- curl -L https://api.github.com/meta | jq -r ".ssh_keys | .[]" | sed -e "s/^/github.com /" >> ~/.ssh/known_hosts
 - mkdir -p /home/travis/.snaps
 - echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 - curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -

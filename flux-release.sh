@@ -6,10 +6,9 @@ HELM_RELEASE="helmrelease/${DEPLOYMENT_NAME}"
 DOCKER_IMAGE_REPO="gcr.io/${GCE_PROJECT}/${APP_NAME}"
 VERSION_VALUE=$(git --git-dir=/${TRAVIS_BUILD_DIR}/src/.git describe --always --tags 2>/dev/null)
 NOTIFICATION_DATA='{"build_url":"'${TRAVIS_BUILD_WEB_URL}'"}'
+counter=0
 
 docker pull $DOCKER_IMAGE_REPO:$VERSION_VALUE
-
-sleep 120 # flux operator caches registry every minute
 
 if [[ $DEPLOYMENT_NAME =~ ^travis-pro ]]; then
   NS=gce-$PROJECT-pro-services-1
@@ -41,10 +40,20 @@ echo fluxctl --force --k8s-fwd-ns=$FLUX_NAMESPACE release \
           --namespace $NS \
           --update-image=$DOCKER_IMAGE_REPO:$VERSION_VALUE
 
-fluxctl --force --k8s-fwd-ns=$FLUX_NAMESPACE release \
+until [ $counter -ge 100 ]
+do
+  if fluxctl --force --k8s-fwd-ns=$FLUX_NAMESPACE release \
           --workload $WORKLOAD:$HELM_RELEASE \
           --namespace $NS \
           --update-image=$DOCKER_IMAGE_REPO:$VERSION_VALUE
+  then
+    break
+  fi
+
+  counter=$((counter+1))
+  sleep 10
+  echo "Please wait... flux queries images registry with interval 1m. Release will be retried in 10s. It can take up to 2 ~ minutes until successful"
+done
 
 if [ "$?" -eq "0" ]; then
   curl -k -H "Content-Type: application/json" -X POST -d $NOTIFICATION_DATA https://fluxbot-staging.travis-ci.org/hubot/$PROJECT/$K8S_APP_REPO/$K8S_APP_REPO_COMMIT/success

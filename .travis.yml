@@ -1,5 +1,8 @@
 dist: bionic
 
+vm:
+  size: large
+
 services:
 - docker
 env:

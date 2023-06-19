@@ -14,7 +14,7 @@ before_install:
 - wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 - echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 - sudo apt update
-- sudo apt-get install apt-transport-https ca-certificates gnupg curl sudo google-cloud-cli vault
+- sudo apt-get -y install apt-transport-https ca-certificates gnupg curl sudo google-cloud-cli vault
 - curl -sLO http://ppa.launchpad.net/rmescandon/yq/ubuntu/pool/main/y/yq/yq_3.1-2_amd64.deb && sudo dpkg -i yq_3.1-2_amd64.deb && rm -f yq_3.1-2_amd64.deb
 - vault login "${VAULT_TOKEN}"
 - docker login --username rarek --password ${DOCKER_HUB_TOKEN}

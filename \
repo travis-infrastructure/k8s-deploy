@@ -1,0 +1,9 @@
+IMAGE="gcr.io/travis-ci-staging-services-1/travis-gdpr:build-123-432c7ae"
+
+if [[ $IMAGE =~ ^gcr\.io/travis-ci-staging-services-1/travis-gdpr:build-([0-9]+)-([a-f0-9]+)$ ]]; then
+    echo "Matched!"
+    echo "Build number: ${BASH_REMATCH[1]}"
+    echo "Commit: ${BASH_REMATCH[2]}"
+else
+    echo "Not matched!"
+fi

@@ -8,6 +8,7 @@ set -xv
 #
 
 APP_NAME=$(cut -d "/" -f 2 <<< $K8S_APP_REPO)
+ENV=$(cut -d "-" -f 3 <<< $DEPLOYMENT_NAME)
 COMMIT_SHA_SHORT=$(git rev-parse --short HEAD 2>/dev/null)
 DOCKER_IMAGE_PATH="gcr.io/${GCE_PROJECT}/${ENV}/${APP_NAME}"
 DOCKER_IMAGE_TAG=$(gcloud container images list-tags ${DOCKER_IMAGE_PATH} --filter="tags=${COMMIT_SHA_SHORT}" --format=json)

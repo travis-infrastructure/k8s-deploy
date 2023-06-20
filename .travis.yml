@@ -25,6 +25,4 @@ jobs:
   include:
   - stage: ":ship: it"
     script: 
-    - date
-
-
+    - make ship

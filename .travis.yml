@@ -16,7 +16,10 @@ before_install:
 - echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 - sudo apt update
 - sudo apt-get -y install apt-transport-https ca-certificates gnupg curl sudo google-cloud-cli vault
+- vault login "${VAULT_TOKEN}"
+- vault kv get -field=secret "gcp/gcp-k8s-sa-${PROJECT}" > client-secret.json;
 - curl -sLO http://ppa.launchpad.net/rmescandon/yq/ubuntu/pool/main/y/yq/yq_3.1-2_amd64.deb && sudo dpkg -i yq_3.1-2_amd64.deb && rm -f yq_3.1-2_amd64.deb
+- gcloud -q auth activate-service-account --key-file "${TRAVIS_BUILD_DIR}/client-secret.json";
 install: true
 jobs:
   include:

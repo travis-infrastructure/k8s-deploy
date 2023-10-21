@@ -29,3 +29,7 @@ travis-pro-vcs-proxy-production:
   cluster: travis-ci-services-1
 travis-pro-vcs-proxy-web-production:
   cluster: travis-ci-services-1
+travis-pro-authorizer-production:
+  cluster: travis-ci-services-1
+travis-pro-permissions-production:
+  cluster: travis-ci-services-1

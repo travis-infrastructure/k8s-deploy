@@ -15,6 +15,8 @@ before_install:
 - wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 - echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7123CB760FF18869
+# Focal mongodb workaround, to remove when fixed
+- sudo rm -rf /etc/apt/sources.list.d/mongodb-4.4.list
 - sudo apt update
 - sudo apt-get -y install apt-transport-https ca-certificates gnupg curl sudo google-cloud-cli vault
 - vault login "${VAULT_TOKEN}"

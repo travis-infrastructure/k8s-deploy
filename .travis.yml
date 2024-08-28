@@ -13,8 +13,6 @@ before_install:
 - echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 - curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7123CB760FF18869
-# Focal mongodb workaround, to remove when fixed
-- sudo rm -rf /etc/apt/sources.list.d/mongodb-4.4.list
 - sudo apt-get update && sudo apt-get install -y google-cloud-sdk google-cloud-sdk-gke-gcloud-auth-plugin
 - sudo snap set system refresh.hold="$(date --date=tomorrow +%Y-%m-%dT%H:%M:%S%:z)"
 - sudo snap get system refresh.hold

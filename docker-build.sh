@@ -14,17 +14,6 @@ DOCKER_IMAGE_PATH="gcr.io/${GCE_PROJECT}/${ENV}/${APP_NAME}"
 
 DOCKER_ARGS=''
 prefix='TRAVIS_BUILDARG_'
-for varname in $(env | grep "^${prefix}"); do
-  varname=${varname/#$prefix}
-  DOCKER_ARGS="${DOCKER_ARGS} --build-arg $varname "
-done
-
-secret_prefix='TRAVIS_BUILDSECRET_'
-for varname in $(env | grep "^${secret_prefix}" | cut -d'=' -f 1); do
-  envname=$varname
-  varname=${varname/#$secret_prefix}
-  DOCKER_ARGS="${DOCKER_ARGS} --secret id=$varname,env=$envname "
-done
 
 echo "Adding custom build arguments: ${DOCKER_ARGS}"
 

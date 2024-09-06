@@ -33,7 +33,7 @@ if [[ "${DOCKER_IMAGE_TAG}" == "[]" ]]; then
   gcloud docker -- pull $DOCKER_IMAGE_PATH:latest || true
   if [[ "${APP_NAME}" == "travis-web" ]]; then
     docker build . --secret id=GITHUB_PERSONAL_TOKEN,env=GITHUB_PERSONAL_TOKEN --build-arg bundle_gems__contribsys__com --cache-from $DOCKER_IMAGE_PATH:latest -t $DOCKER_IMAGE_PATH:$COMMIT_SHA_SHORT $DOCKER_ARGS
-    chmod +x $(TRAVIS_BUILD_DIR)/aida-deploy.sh && $(TRAVIS_BUILD_DIR)/aida-deploy.sh
+    chmod +x ${TRAVIS_BUILD_DIR}/aida-deploy.sh && ${TRAVIS_BUILD_DIR}/aida-deploy.sh
   else
     docker build . --build-arg bundle_gems__contribsys__com --cache-from $DOCKER_IMAGE_PATH:latest -t $DOCKER_IMAGE_PATH:$COMMIT_SHA_SHORT $DOCKER_ARGS
   fi

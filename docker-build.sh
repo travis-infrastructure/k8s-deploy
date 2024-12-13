@@ -13,13 +13,13 @@ COMMIT_SHA_SHORT=$(git rev-parse --short HEAD 2>/dev/null)
 DOCKER_IMAGE_PATH="gcr.io/${GCE_PROJECT}/${ENV}/${APP_NAME}"
 
 DOCKER_ARGS=''
-prefix='TRAVIS_BUILDARG_'
+prefix='TRAVIS_BUILDARG_STAGING_'
 for varname in $(env | grep "^${prefix}"); do
   varname=${varname/#$prefix}
   DOCKER_ARGS="${DOCKER_ARGS} --build-arg $varname "
 done
 
-secret_prefix='TRAVIS_BUILDSECRET_'
+secret_prefix='TRAVIS_BUILDSECRET_STAGING_'
 for varname in $(env | grep "^${secret_prefix}" | cut -d'=' -f 1); do
   envname=$varname
   varname=${varname/#$secret_prefix}

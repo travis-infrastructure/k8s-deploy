@@ -37,4 +37,4 @@ else
 fi
 docker tag $DOCKER_IMAGE_PATH:build-${TRAVIS_BUILD_NUMBER}-$COMMIT_SHA_SHORT $DOCKER_IMAGE_PATH:latest
 gcloud docker -- push $DOCKER_IMAGE_PATH:build-${TRAVIS_BUILD_NUMBER}-$COMMIT_SHA_SHORT
-gcloud docker -- push $DOCKER_IMAGE_PATH:latest
+

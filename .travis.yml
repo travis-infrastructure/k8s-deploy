@@ -9,6 +9,9 @@ env:
   global:
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
+# A temporary workaround for rabbitmq-erlang repository issue
+- sudo rm /etc/apt/sources.list.d/rabbitmq.list
+# end of a workaround
 - mkdir -p /home/travis/.snaps
 - echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 - curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -

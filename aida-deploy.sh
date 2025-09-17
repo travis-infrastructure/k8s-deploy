@@ -1,16 +1,16 @@
 #!/bin/bash
 
 if [ ! -z $DEPLOY_AIDA ];then
-  if [ -z $TRAVIS_BUILDARGS_AIDA_URL ]; then
-    echo "Aida deploy requested, but no TRAVIS_BUILDARGS_AIDA_URL provided"
+  if [ -z $TRAVIS_BUILDARG_AIDA_URL ]; then
+    echo "Aida deploy requested, but no TRAVIS_BUILDARG_URL provided"
     exit 0
   fi
   body="{
     \"request\": {
-    \"message\": \"Update aida library: ${TRAVIS_BUILDARGS_AIDA_URL}\",
+    \"message\": \"Update aida library: ${TRAVIS_BUILDARG_AIDA_URL}\",
     \"branch\":\"ga-dpl\",
     \"config\": {
-    \"env\":{\"AIDA_URL\":\"${TRAVIS_BUILDARGS_AIDA_URL}\",\"AIDA_DEPLOY\":\"true\"}
+    \"env\":{\"AIDA_URL\":\"${TRAVIS_BUILDARG_AIDA_URL}\",\"AIDA_DEPLOY\":\"true\"}
   }}}"
   curl -s -X POST \
     -H "Content-Type: application/json" \

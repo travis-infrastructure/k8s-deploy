@@ -2,7 +2,7 @@
 
 if [ ! -z $DEPLOY_AIDA ];then
   if [ -z $TRAVIS_BUILDARG_AIDA_URL ]; then
-    echo "Aida deploy requested, but no TRAVIS_BUILDARG_URL provided"
+    echo "Aida deploy requested, but no TRAVIS_BUILDARG_AIDA_URL provided"
     exit 0
   fi
   body="{
